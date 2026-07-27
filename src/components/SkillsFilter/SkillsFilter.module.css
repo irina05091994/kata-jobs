@@ -1,0 +1,104 @@
+.filterBlock {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.filterTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 12px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.skillInput {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+}
+
+.skillInput:focus {
+  border-color: #1971c2;
+}
+
+.addButton {
+  width: 32px;
+  height: 32px;
+  background-color: #1971c2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  transition: background-color 0.2s;
+}
+
+.addButton:hover {
+  background-color: #1864ab;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  min-height: 28px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #f1f3f5;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: #495057;
+}
+
+.tagRemove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #868e96;
+  font-size: 14px;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.tagRemove:hover {
+  color: #e03131;
+}
+
+.citySelect {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #495057;
+  background-color: #fff;
+  outline: none;
+  cursor: pointer;
+}
+
+.citySelect:focus {
+  border-color: #1971c2;
+}
