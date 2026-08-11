@@ -10,7 +10,7 @@ interface UseJobsApiParams {
 export function useJobsApi({ page, search, city, skills }: UseJobsApiParams) {
   const apiCity = city === 'Все города' ? undefined : city;
   
-  const { data, isLoading, isError, refetch } = useGetJobsQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useGetJobsQuery({
     page,
     search: search || undefined,
     city: apiCity,
@@ -21,6 +21,7 @@ export function useJobsApi({ page, search, city, skills }: UseJobsApiParams) {
     jobs: data?.jobs || [],
     totalPages: data?.pagination.totalPages || 1,
     isLoading,
+    isFetching, 
     isError,
     refetch,
   };

@@ -18,6 +18,8 @@ const mockUseJobsApi = vi.mocked(useJobsApi);
 describe('JobsPage', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    
+   
     mockUseJobsApi.mockReturnValue({
       jobs: [
         {
@@ -33,6 +35,7 @@ describe('JobsPage', () => {
       ],
       totalPages: 2,
       isLoading: false,
+      isFetching: false, 
       isError: false,
       refetch: vi.fn(),
     });
@@ -75,10 +78,12 @@ describe('JobsPage', () => {
   });
 
   it('отображает сообщение об отсутствии вакансий', () => {
+
     mockUseJobsApi.mockReturnValue({
       jobs: [],
       totalPages: 0,
       isLoading: false,
+      isFetching: false, // <-- И здесь
       isError: false,
       refetch: vi.fn(),
     });

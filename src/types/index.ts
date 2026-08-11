@@ -8,6 +8,8 @@ export interface Job {
   space: 'office' | 'remote' | 'hybrid';
   skills: string;
   short_description?: string;
+  description?: string;      
+  about_company?: string;   
 }
 
 export interface PaginationData {
@@ -15,6 +17,8 @@ export interface PaginationData {
   totalPages: number;
   totalItems: number;
   itemsPerPage: number;
+  hasNextPage: boolean;    
+  hasPrevPage: boolean;
 }
 
 export interface JobsResponse {
@@ -27,5 +31,5 @@ export interface JobsFilters {
   page: number;
   search?: string;
   city?: string;
-  skills?: string; // Строка через запятую для API
+  skills?: string; 
 }
