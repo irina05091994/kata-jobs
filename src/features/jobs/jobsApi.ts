@@ -20,7 +20,11 @@ export const jobsApi = createApi({
     }),
 
     getJobById: builder.query<Job, number>({
-      query: (id) => `/jobs/${id}`,
+  query: (id) => `/jobs/${id}`,
+  transformResponse: (response: any) => {
+    
+    return response.job || response;
+  },
     }),
   }),
 });

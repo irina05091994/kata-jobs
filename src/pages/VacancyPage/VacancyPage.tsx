@@ -12,7 +12,8 @@ export const VacancyPage = () => {
   const { id } = useParams<{ id: string }>();
   const jobId = id ? parseInt(id, 10) : 0;
 
-  const { data: job, isLoading, isError } = useGetJobByIdQuery(jobId);
+  const { data: job, isLoading, isError, error } = useGetJobByIdQuery(jobId);
+
 
   if (isLoading) {
     return (
@@ -30,7 +31,8 @@ export const VacancyPage = () => {
         <div className={classes.contentWrapper}>
           <div className={classes.error}>
             <h2>Вакансия не найдена</h2>
-            <Link to="/vacancies" className={classes.backLink}>
+            <p>Детали ошибки: {JSON.stringify(error)}</p>
+            <Link to="/vacancies/moscow" className={classes.backLink}>
               ← Вернуться к списку вакансий
             </Link>
           </div>
@@ -39,12 +41,12 @@ export const VacancyPage = () => {
     );
   }
 
-  const skillsArray = job.skills ? job.skills.split(',') : [];
+  const skillsArray = job.skills ? job.skills.split(',').filter(s => s.trim()) : [];
 
   return (
     <div className={classes.pageContainer}>
       <div className={classes.contentWrapper}>
-        <Link to="/vacancies" className={classes.backLink}>
+        <Link to="/vacancies/moscow" className={classes.backLink}>
           ← Вернуться к списку вакансий
         </Link>
 
@@ -59,17 +61,12 @@ export const VacancyPage = () => {
           <div className={classes.company}>{job.company_name}</div>
           
           {job.space && (
-            <span className={classes.badge}>{spaceLabels[job.space]}</span>
+            <span className={classes.badge}>
+              {spaceLabels[job.space] || job.space}
+            </span>
           )}
           
           <div className={classes.city}>{job.city}</div>
-
-          {job.about_company && (
-            <div className={classes.section}>
-              <h3 className={classes.sectionTitle}>Компания</h3>
-              <div className={classes.description}>{job.about_company}</div>
-            </div>
-          )}
 
           {job.description && (
             <div className={classes.section}>
@@ -83,9 +80,18 @@ export const VacancyPage = () => {
               <h3 className={classes.sectionTitle}>Ключевые навыки</h3>
               <div className={classes.skillsList}>
                 {skillsArray.map((skill) => (
-                  <span key={skill} className={classes.skillTag}>{skill}</span>
+                  <span key={skill} className={classes.skillTag}>
+                    {skill}
+                  </span>
                 ))}
               </div>
+            </div>
+          )}
+
+          {job.about_company && (
+            <div className={classes.section}>
+              <h3 className={classes.sectionTitle}>Компания</h3>
+              <div className={classes.description}>{job.about_company}</div>
             </div>
           )}
         </div>
