@@ -1,26 +1,38 @@
-import { IconUser } from '@tabler/icons-react';
+import { NavLink } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import classes from './Header.module.css';
 
 export const Header = () => {
+
+  const vacanciesMatch = useMatch('/vacancies/*');
+
+  const aboutMatch = useMatch('/about');
+
   return (
     <header className={classes.header}>
-      <div className={classes.inner}>
-        <a href="/" className={classes.logo}>
+      <div className={classes.container}>
+        <div className={classes.logo}>
           <span className={classes.logoIcon}>hh</span>
-          <span>.FrontEnd</span>
-        </a>
+          <span className={classes.logoText}>FrontEnd</span>
+        </div>
 
         <nav className={classes.nav}>
-          <a href="/vacancies-fe" className={`${classes.navLink} ${classes.navLinkActive}`}>
+          <NavLink
+            to="/vacancies/moscow"
+            className={`${classes.navLink} ${vacanciesMatch ? classes.active : ''}`}
+          >
             Вакансии FE
-          </a>
-          <a href="/about" className={classes.navLink}>
-            <IconUser className={classes.navIcon} />
-            Обо мне
-          </a>
-        </nav>
+            {vacanciesMatch && <span className={classes.activeDot}> ●</span>}
+          </NavLink>
 
-        <div className={classes.navSpacer} />
+          <NavLink
+            to="/about"
+            className={`${classes.navLink} ${aboutMatch ? classes.active : ''}`}
+          >
+            Обо мне
+            {aboutMatch && <span className={classes.activeDot}> ●</span>}
+          </NavLink>
+        </nav>
       </div>
     </header>
   );
