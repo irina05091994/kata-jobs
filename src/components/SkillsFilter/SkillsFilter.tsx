@@ -3,21 +3,11 @@ import classes from './SkillsFilter.module.css';
 
 interface SkillsFilterProps {
   skills: string[];
-  city: string;
   onAddSkill: (skill: string) => void;
   onRemoveSkill: (skill: string) => void;
-  onCityChange: (city: string) => void;
 }
 
-const CITIES = ['Все города', 'Москва', 'Санкт-Петербург'];
-
-export const SkillsFilter = ({
-  skills,
-  city,
-  onAddSkill,
-  onRemoveSkill,
-  onCityChange,
-}: SkillsFilterProps) => {
+export const SkillsFilter = ({ skills, onAddSkill, onRemoveSkill }: SkillsFilterProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleAdd = () => {
@@ -36,19 +26,19 @@ export const SkillsFilter = ({
   };
 
   return (
-    <div className={classes.filterBlock}>
+    <div className={classes.filterCard}>
       <div className={classes.filterTitle}>Ключевые навыки</div>
 
       <div className={classes.inputRow}>
         <input
           type="text"
           className={classes.skillInput}
-          placeholder=""
+          placeholder="Навык"
           value={inputValue}
           onChange={(e) => setInputValue(e.currentTarget.value)}
           onKeyDown={handleKeyDown}
         />
-        <button className={classes.addButton} onClick={handleAdd}>
+        <button className={classes.addButton} onClick={handleAdd} type="button">
           +
         </button>
       </div>
@@ -61,24 +51,13 @@ export const SkillsFilter = ({
               className={classes.tagRemove}
               onClick={() => onRemoveSkill(skill)}
               aria-label={`Удалить ${skill}`}
+              type="button"
             >
               ×
             </button>
           </span>
         ))}
       </div>
-
-      <select
-        className={classes.citySelect}
-        value={city}
-        onChange={(e) => onCityChange(e.currentTarget.value)}
-      >
-        {CITIES.map((c) => (
-          <option key={c} value={c}>
-            {c}
-          </option>
-        ))}
-      </select>
     </div>
   );
 };

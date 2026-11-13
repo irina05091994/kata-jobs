@@ -101,4 +101,109 @@
 
 .citySelect:focus {
   border-color: #1971c2;
+}.cityBlock {
+  margin-top: 16px;
+}
+
+.citySelect {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #495057;
+  background-color: #ffffff;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.citySelect:focus {
+  border-color: #4263eb;
+}
+
+.filterCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.filterTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f0f10;
+  margin-bottom: 16px;
+}
+
+.inputRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.skillInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.skillInput:focus {
+  border-color: #4263eb;
+}
+
+.addButton {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background-color: #4263eb;
+  color: #ffffff;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.addButton:hover {
+  background-color: #364fc7;
+}
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f1f3f5;
+  color: #495057;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.tagRemove {
+  background: none;
+  border: none;
+  color: #868e96;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.tagRemove:hover {
+  color: #e03131;
 }

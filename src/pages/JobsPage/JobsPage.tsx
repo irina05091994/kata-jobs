@@ -1,23 +1,45 @@
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { Tabs } from '@mantine/core';
 import { JobCard } from '../../components/JobCard/JobCard';
 import { SkillsFilter } from '../../components/SkillsFilter/SkillsFilter';
 import { useJobFilters } from '../../hooks/useJobFilters';
 import { useJobsApi } from '../../hooks/useJobsApi';
 import classes from './JobsPage.module.css';
 
+const CITY_MAP: Record<string, string> = {
+  moscow: 'Москва',
+  petersburg: 'Санкт-Петербург',
+};
+
 export const JobsPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const cityParam = location.pathname.includes('petersburg')
+    ? 'petersburg'
+    : 'moscow';
+
+  const apiCity = CITY_MAP[cityParam];
   const filters = useJobFilters();
 
   const { jobs, totalPages, isLoading, isFetching, isError } = useJobsApi({
     page: filters.page,
     search: filters.search || undefined,
-    city: filters.city !== 'Все города' ? filters.city : undefined,
+    city: apiCity,
     skills: filters.skills.length > 0 ? filters.skills.join(',') : undefined,
   });
+
+  const handleTabChange = (value: string | null) => {
+    if (value) {
+      navigate(`/vacancies/${value}`);
+      filters.setPage(1);
+    }
+  };
 
   return (
     <div className={classes.pageContainer}>
       <div className={classes.contentWrapper}>
+
         <div className={classes.headerRow}>
           <div className={classes.titleBlock}>
             <h1 className={classes.mainTitle}>Список вакансий</h1>
@@ -31,36 +53,33 @@ export const JobsPage = () => {
               placeholder="Должность или название компании"
               value={filters.searchInput}
               onChange={(e) => filters.setSearchInput(e.currentTarget.value)}
-              disabled={isFetching} // Блокируем инпут во время загрузки
+              disabled={isFetching}
             />
-            <button 
-              type="submit" 
-              className={classes.searchButton}
-              disabled={isFetching} // Блокируем кнопку во время загрузки
-            >
-              {/* Показываем спиннер внутри кнопки, если идёт запрос */}
-              {isFetching ? (
-                <span className={classes.buttonSpinner}></span>
-              ) : (
-                'Найти'
-              )}
+            <button type="submit" className={classes.searchButton} disabled={isFetching}>
+              {isFetching ? <span className={classes.buttonSpinner}></span> : 'Найти'}
             </button>
           </form>
         </div>
 
+      
         <div className={classes.layout}>
           <aside className={classes.sidebar}>
             <SkillsFilter
               skills={filters.skills}
-              city={filters.city}
               onAddSkill={filters.handleAddSkill}
               onRemoveSkill={filters.handleRemoveSkill}
-              onCityChange={filters.handleCityChange}
             />
           </aside>
 
-          <div>
-            {/* Показываем большую загрузку только при первой загрузке страницы */}
+          <div className={classes.mainContent}>
+          
+            <Tabs value={cityParam} onChange={handleTabChange} className={classes.tabsContainer}>
+              <Tabs.List>
+                <Tabs.Tab value="moscow">Москва</Tabs.Tab>
+                <Tabs.Tab value="petersburg">Санкт-Петербург</Tabs.Tab>
+              </Tabs.List>
+            </Tabs>
+
             {isLoading && (
               <div className={classes.loadingWrapper}>
                 <div className={classes.spinner}></div>
@@ -78,13 +97,12 @@ export const JobsPage = () => {
               <div className={classes.emptyText}>Вакансии не найдены</div>
             )}
 
-            {/* Показываем список. Если isFetching === true, он останется на экране, но кнопка покажет спиннер */}
             {!isLoading && !isError && jobs.length > 0 && (
               <div className={classes.jobsList}>
                 {jobs.map((job) => (
-                  <Link 
-                    key={job.id} 
-                    to={`/vacancies/${job.id}`} 
+                  <Link
+                    key={job.id}
+                    to={`/vacancies/${job.id}`}
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     <JobCard job={job} />
